@@ -8,4 +8,19 @@
             print(code)
         </code>
     </pre>
+    <br>
+    <form method="POST" action="{% url 'correcao' %}">
+        {% csrf_token %} 
+        <div class="mb-3">
+            <textarea class="form-control" name="code" placeholder="Digite o código para que a I.A corrija" rows="3"></textarea>
+        </div>
+        <select class="form-select" name="linguagem">
+            <option>Selecione a linguagem de programação</option>
+            {% for linguagem in linguagens %}
+                <option value={{linguagem}}>{{linguagem}}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <button type="submit" class="btn btn-secondary">Enviar</button>
+    </form>
 {% endblock content %}
