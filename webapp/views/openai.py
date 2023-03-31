@@ -5,7 +5,7 @@ from django.shortcuts import render
 def correcao(request):
     params = {
         "view":{
-            "codigo": "correcao",
+            "id": "correcao",
             "titulo": "Correção de Código"
         }
     }

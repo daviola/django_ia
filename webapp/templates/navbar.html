@@ -6,9 +6,42 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="#">Correção</a>
-          <a class="nav-link disabled">Criação</a>
-          <a class="nav-link disabled">Geral</a>
+          <a class="nav-link 
+            {% if view.id == 'correcao' %} 
+              active 
+            {% endif %}" 
+            {% if view.id == 'correcao' %} 
+              aria-current="page" 
+            {% endif %} 
+            href="#">Correção</a>
+
+          <a class="nav-link 
+            {% if view.id == 'criacao' %} 
+              active 
+            {% endif %}" 
+            {% if view.id == 'criacao' %} 
+              aria-current="page" 
+            {% endif %} 
+            href="#">Criação</a>
+        
+          <a class="nav-link 
+            {% if view.id == 'geral' %} 
+              active 
+            {% endif %}" 
+            {% if view.id == 'geral' %} 
+              aria-current="page" 
+            {% endif %} 
+            href="#">Geral</a>
+        
+          <a class="nav-link 
+            {% if view.id == 'historico' %} 
+              active 
+            {% endif %}" 
+            {% if view.id == 'historico' %} 
+              aria-current="page" 
+            {% endif %} 
+            href="#">Historico</a>
+        
         </div>
       </div>
     </div>
