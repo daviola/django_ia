@@ -1,26 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
-    <pre>
-        <code class="line-numbers language-python">
-        if code == None:
-            print("Não tenho código para exibir")
-        else:
-            print(code)
-        </code>
-    </pre>
+    {% if response %}
+<pre>
+<code class="line-numbers language-{{linguagem}}">
+{{response}}
+</code>
+</pre>
+    {% else %}
+<pre>
+<code class="line-numbers language-python">
+if code == None:
+    print("Não tenho código para exibir")
+else:
+    print(code)
+</code>
+</pre>
+    {% endif %}
     <br>
-    <form method="POST" action="{% url 'correcao' %}">
-        {% csrf_token %} 
-        <div class="mb-3">
-            <textarea class="form-control" name="code" placeholder="Digite o código para que a I.A corrija" rows="3"></textarea>
-        </div>
-        <select class="form-select" name="linguagem">
-            <option>Selecione a linguagem de programação</option>
-            {% for linguagem in linguagens %}
-                <option value={{linguagem}}>{{linguagem}}</option>
-            {% endfor %}
-        </select>
-        <br>
-        <button type="submit" class="btn btn-secondary">Enviar</button>
-    </form>
+    {% with text_area_placeholder="Digite o código para que a I.A corrija" view_url="correcao"%}
+        {% include "code_form.html" %}    
+    {% endwith %}
 {% endblock content %}
