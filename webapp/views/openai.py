@@ -56,7 +56,7 @@ def correcao(request):
                 frequency_penalty = 0.0,
                 presence_penalty = 0.0
             )
-            params["response"] = response
+            params["response"] = response["choices"][0]["text"].strip()
         except Exception as e:
             params["code"] = e
     return render(request, "correcao.html", params)
