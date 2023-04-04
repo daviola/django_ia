@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib import messages
-
+import openai
+OPENAI_KEY = "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"
 # Create your views here.
 linguagens = [
     "c",
@@ -43,5 +44,19 @@ def correcao(request):
             messages.success(request, "Por favor, selecione uma linguagem.")
             return render(request, "correcao.html", params)
         #aqui vamos fazer um request pra openai
-        params["response"] = params["code"]
+        openai.api_key = OPENAI_KEY
+        openai.Model.list()
+        try:
+            response = openai.Completion.create(
+                engine = "text-davinci-003",
+                prompt = f"Respond only with code. Fix this {params['linguagem']} code: {params['code']}.",
+                temperature = 0,
+                max_tokens = 1000,
+                top_p = 1.0,
+                frequency_penalty = 0.0,
+                presence_penalty = 0.0
+            )
+            params["response"] = response
+        except Exception as e:
+            params["code"] = e
     return render(request, "correcao.html", params)
