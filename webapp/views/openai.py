@@ -92,3 +92,30 @@ def criacao(request):
         except Exception as e:
             params["code"] = e
     return render(request, "criacao.html", params)
+
+def geral(request):
+    params = {
+        "view":{
+            "id": "geral",
+            "titulo": "Perguntas Gerais"
+        },
+    }
+    if request.method == "POST":
+        params["code"] = request.POST.get("code")
+        #aqui vamos fazer um request pra openai
+        openai.api_key = OPENAI_KEY
+        openai.Model.list()
+        try:
+            response = openai.Completion.create(
+                engine = "text-davinci-003",
+                prompt = f"{params['code']}.",
+                temperature = 0,
+                max_tokens = 1000,
+                top_p = 1.0,
+                frequency_penalty = 0.0,
+                presence_penalty = 0.0
+            )
+            params["response"] = response["choices"][0]["text"].strip()
+        except Exception as e:
+            params["code"] = e
+    return render(request, "geral.html", params)

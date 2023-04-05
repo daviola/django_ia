@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if response %}
+        {% with pergunta=code resposta=response %}
+            {% include "respostas.html" %}
+        {% endwith %}
+    {% else %}
+        {% with pergunta="Curiosidades da América Latina" resposta="O México, principal destino turístico da América Latina, possui o maior número de patrimônios mundiais da humanidade dessa região.<br>A cachoeira Salto Angel, localizada no interior da Venezuela, com quase 1.000 metros de queda de água, é mais alta cachoeira do planeta." %}
+            {% include "respostas.html" %}
+        {% endwith %}
+    {% endif %}
+    <br>
+    <br>
+    <form method="POST" action="{% url 'geral' %}">
+        {% csrf_token %} 
+        <div class="mb-3">
+            <textarea class="form-control" name="code" placeholder="Digite uma instrução para a I.A" rows="3">{{code}}</textarea>
+        </div>        
+        <br>
+        <button type="submit" class="btn btn-secondary">Enviar</button>
+    </form>
+{% endblock content %}
