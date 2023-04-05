@@ -3,5 +3,6 @@ from django.urls import path
 from webapp.views import openai
 
 urlpatterns = [    
-    path("correcao", openai.correcao, name="correcao")
+    path("correcao", openai.correcao, name="correcao"),
+    path("criacao", openai.criacao, name="criacao")
 ]

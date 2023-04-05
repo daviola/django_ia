@@ -60,3 +60,35 @@ def correcao(request):
         except Exception as e:
             params["code"] = e
     return render(request, "correcao.html", params)
+
+def criacao(request):
+    params = {
+        "view":{
+            "id": "criacao",
+            "titulo": "Criação de Código"
+        },
+        "linguagens": linguagens
+    }
+    if request.method == "POST":
+        params["code"] = request.POST.get("code")
+        params["linguagem"] = request.POST.get("linguagem")
+        if params["linguagem"] == "Selecione a linguagem de programação":
+            messages.success(request, "Por favor, selecione uma linguagem.")
+            return render(request, "criacao.html", params)
+        #aqui vamos fazer um request pra openai
+        openai.api_key = OPENAI_KEY
+        openai.Model.list()
+        try:
+            response = openai.Completion.create(
+                engine = "text-davinci-003",
+                prompt = f"Respond only with code. {params['code']} in {params['linguagem']}.",
+                temperature = 0,
+                max_tokens = 1000,
+                top_p = 1.0,
+                frequency_penalty = 0.0,
+                presence_penalty = 0.0
+            )
+            params["response"] = response["choices"][0]["text"].strip()
+        except Exception as e:
+            params["code"] = e
+    return render(request, "criacao.html", params)

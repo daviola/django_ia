@@ -13,7 +13,7 @@
             {% if view.id == 'correcao' %} 
               aria-current="page" 
             {% endif %} 
-            href="#">Correção</a>
+            href="{% url 'correcao' %}">Correção</a>
 
           <a class="nav-link 
             {% if view.id == 'criacao' %} 
@@ -22,7 +22,7 @@
             {% if view.id == 'criacao' %} 
               aria-current="page" 
             {% endif %} 
-            href="#">Criação</a>
+            href="{% url 'criacao' %}">Criação</a>
         
           <a class="nav-link 
             {% if view.id == 'geral' %} 
