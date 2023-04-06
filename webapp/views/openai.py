@@ -100,6 +100,15 @@ def criacao(request):
                 presence_penalty = 0.0
             )
             params["response"] = response["choices"][0]["text"].strip()
+            # Salva o registro no historico
+            registro = Registros(
+                pergunta=params["code"],
+                resposta=params["response"],
+                linguagem=params["linguagem"],
+                user=request.user,
+                tipo=params["view"]["id"],
+            )
+            registro.save()
         except Exception as e:
             params["code"] = e
     return render(request, "criacao.html", params)
@@ -127,6 +136,15 @@ def geral(request):
                 presence_penalty = 0.0
             )
             params["response"] = response["choices"][0]["text"].strip()
+            # Salva o registro no historico
+            registro = Registros(
+                pergunta=params["code"],
+                resposta=params["response"],
+                linguagem="geral",
+                user=request.user,
+                tipo=params["view"]["id"],
+            )
+            registro.save()
         except Exception as e:
             params["code"] = e
     return render(request, "geral.html", params)
