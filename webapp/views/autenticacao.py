@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from webapp.forms import SignUpForm
 
 def signin(request):
     if request.method == "POST":
@@ -23,4 +24,24 @@ def signout(request):
     return redirect("correcao")
 
 def signup(request):
-    pass
+    params = {
+        "view":{
+            "id": "registro",
+            "titulo": "Registro de Usuário"
+        },
+    }
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        params["form"] = form
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password1"]
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, "Você criou uma conta com sucesso")
+            return redirect("correcao")
+    else:
+        params["form"] = SignUpForm()
+
+    return render(request, "registro.html", params)

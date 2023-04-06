@@ -66,7 +66,7 @@ class SignUpForm(UserCreationForm):
     )
 
     class Meta:
-        model: User
+        model = User
         fields = (
             "username",
             "first_name",
@@ -77,7 +77,7 @@ class SignUpForm(UserCreationForm):
             )
         
     def __init__(self, *args, **kwargs) -> None:
-        super(SignUpForm).__init__(*args, **kwargs)
+        super(SignUpForm, self).__init__(*args, **kwargs)
         self.fields["username"].widget.attrs["class"] = "form-control"
         self.fields["username"].widget.attrs["placeholder"] = "Usuário"
         self.fields["username"].label = ""

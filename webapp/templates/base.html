@@ -20,12 +20,12 @@
               </div>
             {% endfor %}
         {% endif %}
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated or view.id == "registro" %}
             <h2 class="text-center">{{view.titulo}}</h2>
             <br>
             {% block content %}
-            {% endblock %} 
-        {% else %}
+            {% endblock %}
+        {% else %}            
             {% include "signin.html" %}
         {% endif %}
     </div>
