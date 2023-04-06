@@ -20,9 +20,9 @@
               </div>
             {% endfor %}
         {% endif %}
-        <h2 class="text-center">{{view.titulo}}</h2>
-        <br>
         {% if user.is_authenticated %}
+            <h2 class="text-center">{{view.titulo}}</h2>
+            <br>
             {% block content %}
             {% endblock %} 
         {% else %}
