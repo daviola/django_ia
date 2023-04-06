@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib import messages
 import openai
+from webapp.models import Registros
 OPENAI_KEY = "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"
 # Create your views here.
 linguagens = [
@@ -57,6 +58,16 @@ def correcao(request):
                 presence_penalty = 0.0
             )
             params["response"] = response["choices"][0]["text"].strip()
+
+            # Salva o registro no historico
+            registro = Registros(
+                pergunta=params["code"],
+                resposta=params["response"],
+                linguagem=params["linguagem"],
+                user=request.user,
+                tipo=params["view"]["id"],
+            )
+            registro.save()
         except Exception as e:
             params["code"] = e
     return render(request, "correcao.html", params)
