@@ -148,3 +148,12 @@ def geral(request):
         except Exception as e:
             params["code"] = e
     return render(request, "geral.html", params)
+
+def historico(request):
+    registros = Registros.objects.filter(user_id=request.user.id)
+    params = {
+        "titulo": "Historico",
+        "registros": registros
+    }
+
+    return render(request, "historico.html", params)

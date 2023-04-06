@@ -47,7 +47,7 @@
             {% if view.id == 'historico' %} 
               aria-current="page" 
             {% endif %} 
-            href="#">Historico</a>
+            href="{% url 'historico' %}">Historico</a>
           </li>
         </ul>
         {% if user.is_authenticated %}
