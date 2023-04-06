@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 import openai
 from webapp.models import Registros
@@ -157,3 +157,9 @@ def historico(request):
     }
 
     return render(request, "historico.html", params)
+
+def deletar_registro(request, id_do_registro):
+    registro = Registros.objects.get(pk=id_do_registro)
+    registro.delete()
+    messages.success(request, "Registro deletado")
+    return redirect("historico")
