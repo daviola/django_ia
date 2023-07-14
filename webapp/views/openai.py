@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 import openai
 from webapp.models import Registros
-OPENAI_KEY = "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"
+OPENAI_KEY = "==put your api key here=="
 # Create your views here.
 linguagens = [
     "c",
